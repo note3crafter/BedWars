@@ -30,8 +30,9 @@ L4:
 - [ ] Spectator mode
 - [ ] Scoreboard
 
-Plugin Code by XenialDan
+Plugin Code von:
+- XenialDan
 
-Plugin Fixed by
+Plugin repaiert von:
 - note3crafter
 - FlussRaplay
