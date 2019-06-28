@@ -36,3 +36,10 @@ Plugin Code von:
 Plugin repaiert von:
 - note3crafter
 - FlussRaplay
+
+Was noch gemacht wurde:
+- EnderChest-Items Werden NICHT entfernt
+- Plugin wurde auf 3.8.3 Erfolgreich ohne anderen Plugins getestet
+
+Wichtiges
+- Fals fehler auftreten sollten bitte immer den Crashlog schicken 
