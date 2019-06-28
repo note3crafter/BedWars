@@ -208,7 +208,7 @@ class Loader extends Game
                                 $form->setCallable(function (Player $player, $data) {
                                     $worldname = $data;
                                     $arena = API::getArenaByLevelName($this, $worldname);
-                                    $this->getServer()->broadcastMessage("Stopping arena, reason: Admin actions", $arena->getPlayers());
+                                    $this->getServer()->broadcastMessage("Arena Gestoppt, wegen: ein Admin hat diese Arena geschlossen", $arena->getPlayers());
                                     $arena->stopArena();
                                     $arena->setState(Arena::SETUP);
                                     if (!$this->getServer()->isLevelLoaded($worldname)) $this->getServer()->loadLevel($worldname);
@@ -261,7 +261,7 @@ class Loader extends Game
                                 $form->setCallable(function (Player $player, $data) {
                                     $worldname = $data;
                                     $arena = API::getArenaByLevelName($this, $worldname);
-                                    $this->getServer()->broadcastMessage("Stopping arena, reason: Admin actions", $arena->getPlayers());
+                                    $this->getServer()->broadcastMessage("Arena Gestoppt, wegen: ein Admin hat diese Arena geschlossen", $arena->getPlayers());
                                     $arena->stopArena();
                                     $arena->setState(Arena::SETUP);
                                     if (!$this->getServer()->isLevelLoaded($worldname)) $this->getServer()->loadLevel($worldname);
@@ -438,7 +438,7 @@ class Loader extends Game
     {
         $player->setSpawn(Position::fromObject(API::getTeamOfPlayer($player)->getSpawn(), API::getArenaOfPlayer($player)->getLevel()));
         //Team color switching
-        $player->getInventory()->addItem(Item::get(ItemIds::BED, API::getMetaByColor(API::getTeamOfPlayer($player)->getColor()))->setCustomName("Switch Team"));
+        $player->getInventory()->addItem(Item::get(ItemIds::BED, API::getMetaByColor(API::getTeamOfPlayer($player)->getColor()))->setCustomName("Wechsle das Team"));
     }
 
     /**
