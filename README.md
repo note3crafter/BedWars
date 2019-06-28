@@ -1,18 +1,18 @@
-# BedWars
+# BedWars - German Edition
 <!-- todo poggit badges -->
-A new BedWars plugin by XenialDan
+Ein neues Bedwars Plugin von XenialDan
 ## Setup
-Set up an arena:
-Use the command `/bw setup` to open an ui, where you can add, create and modify arenas.
+So kannst du eine Arena Erstellen:
+Benutze den Command `/bw setup` , danach öffnet sich ein UI und dort kannst du deine Arena Bearbeiten.
 
-It allows you to create item spawners, set team spawn points, build in the world and create villager shops.
+Es ermöglicht ihnen ItemSpawnee, TeamSpawnPonits sowie VillagerShops.
 
-Remember to use `/bw endsetup` when you are done - it automatically saves and backs up the world.
+Benutze `/bw endsetup` wenn du Fertig bist - es Speichert deine Welt automatisch.
 
-There are `{arenaname}.json` files, where you can modify some settings like team damaging and breakable blocks.
+in der Datai `{arenaname}.json` kannst du Team damaging und einstellen oib man die Blöcke in der Map zerstören kann oder nicht.
 
 ## Joining / Sign setup
-Joining is done by using signs, but you can add any event for joining that you'd like - in JoinEventListener.php
+Die Verknüpfung erfolgt über Zeichen, aber Sie können jedes Ereignis für den Beitritt hinzufügen, das Sie möchten - in JoinEventListener.php
 
 Sign setup:
 ```
@@ -22,10 +22,16 @@ L3:
 L4: 
 ```
 
-## Rewards and win messages
-If you want to give rewards to the winning player/team, you can either listen for the `WinEvent` in any plugin, or use [gamereward](https://github.com/thebigsmileXD/gamereward)
+## Belohnung und Gewinnnachrrichten
+[gamereward](https://github.com/thebigsmileXD/gamereward)
 
-## TODOs
+## In Zukunft
 - [ ] Settings for villager shop (entity used, items)
 - [ ] Spectator mode
 - [ ] Scoreboard
+
+Plugin Code by XenialDan
+
+Plugin Fixed by
+- note3crafter
+- FlussRaplay
