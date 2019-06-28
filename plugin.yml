@@ -3,13 +3,11 @@ name: XBedWars
 main: xenialdan\BedWars\Loader
 version: 1.1.3
 api: [3.0.0, 4.0.0]
-author: XenialDan
+author: XenialDan-(Fixed by note3crafter, FlussRaplay)
 load: POSTWORLD
 softdepend:
 - DEVirion
 - gamereward
-- note3crafter
-- FlussRaplay
 prefix: "[BedWars]"
 permissions:
   bedwars.command:
