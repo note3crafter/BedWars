@@ -6,7 +6,7 @@ namespace xenialdan\BedWars\task;
 
 use pocketmine\scheduler\Task;
 use xenialdan\BedWars\Loader;
-use xenialdan\gameapi\Arena;
+use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
 
 class SpawnItemsTask extends Task
 {
@@ -28,8 +28,8 @@ class SpawnItemsTask extends Task
     {
         if ($this->arena->getState() === Arena::INGAME) {
             if ($currentTick % 50 === 0) Loader::getInstance()->spawnBronze($this->arena);
-            if ($currentTick % 600 === 0) Loader::getInstance()->spawnSilver($this->arena);
-            if ($currentTick % 1200 === 0) Loader::getInstance()->spawnGold($this->arena);
+            if ($currentTick % 250 === 0) Loader::getInstance()->spawnSilver($this->arena);
+            if ($currentTick % 750 === 0) Loader::getInstance()->spawnGold($this->arena);
         } else {
             $this->getHandler()->cancel();
         }

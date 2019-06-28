@@ -13,11 +13,11 @@ use pocketmine\item\ItemIds;
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
-use xenialdan\customui\elements\Button;
-use xenialdan\customui\windows\SimpleForm;
-use xenialdan\gameapi\API;
-use xenialdan\gameapi\Arena;
-use xenialdan\gameapi\Team;
+use xenialdan\BedWars\libs\xenialdan\customui\elements\Button;
+use xenialdan\BedWars\libs\xenialdan\customui\windows\SimpleForm;
+use xenialdan\BedWars\libs\xenialdan\gameapi\API;
+use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
+use xenialdan\BedWars\libs\xenialdan\gameapi\Team;
 
 /**
  * Class EventListener
@@ -77,12 +77,12 @@ class EventListener implements Listener
                     /** @var BedwarsTeam $attackedTeam */
                     $attackedTeam = API::getTeamByColor(Loader::getInstance(), $event->getBlock()->getLevel(), API::getColorByMeta($c));
                     if (is_null($attackedTeam)) {//no team but bed for color
-                        Loader::getInstance()->getLogger()->notice("Tried to break a bed for a non existing team. You might want to fix your map. Bed: Color: " . API::getColorByMeta($c) . "" . $event->getBlock() . " " . $event->getBlock()->asVector3() . " " . $event->getBlock()->getLevel()->getName());
+                        Loader::getInstance()->getLogger()->notice("Versuche nicht ein Bed zu Zerstören obwohl dieses Team nicht existiert. You might want to fix your map. Bed: Color: " . API::getColorByMeta($c) . "" . $event->getBlock() . " " . $event->getBlock()->asVector3() . " " . $event->getBlock()->getLevel()->getName());
                         return;
                     }
                     $event->setCancelled();
                     if ($attackedTeam->inTeam($entity)) {
-                        $entity->sendTip(TextFormat::RED . "You can not break your own teams bed!");//TODO add a warning to the player?
+                        $entity->sendTip(TextFormat::RED . "Du kannst dein eigenes Bed nicht Zerstören!");//TODO add a warning to the player?
                         return;
                     } else {
                         if ($attackedTeam->isBedDestroyed()) return;
@@ -94,11 +94,11 @@ class EventListener implements Listener
                             $event->setCancelled(false);
                             return;
                         }
-                        Loader::getInstance()->getServer()->broadcastTitle(TextFormat::RED . "Your Teams bed was destroyed", TextFormat::RED . "by team " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
+                        Loader::getInstance()->getServer()->broadcastTitle(TextFormat::RED . "Dein Bed wurde Zerstört", TextFormat::RED . "Vom Team " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
                         foreach ($attackedTeam->getPlayers() as $attackedTeamPlayer) {
                             $attackedTeamPlayer->setSpawn($attackedTeamPlayer->getServer()->getDefaultLevel()->getSafeSpawn());
                         }
-                        Loader::getInstance()->getServer()->broadcastTitle($attackedTeam->getColor() . "The bed of team " . $attackedTeam->getName(), $attackedTeam->getColor() . "was destroyed by team " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
+                        Loader::getInstance()->getServer()->broadcastTitle($attackedTeam->getColor() . "Das Bed vom Team " . $attackedTeam->getName(), $attackedTeam->getColor() . "wurde vom Team Zerstört " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
                         $spk = new PlaySoundPacket();
                         [$spk->x, $spk->y, $spk->z] = [$entity->x, $entity->y, $entity->z];
                         $spk->volume = 1;
@@ -122,10 +122,10 @@ class EventListener implements Listener
                 $player = $event->getPlayer();
                 /** @var Team $team */
                 if(count(($team = $arena->getTeamByPlayer($player))->getPlayers()) <= $team->getMinPlayers()){
-                    $player->sendMessage(TextFormat::RED.TextFormat::BOLD."Can not leave the team because a minimum of ".$team->getMinPlayers(). " players is required for this team");
+                    $player->sendMessage(TextFormat::RED.TextFormat::BOLD."Du kannst das Team nicht wechseln ".$team->getMinPlayers(). " Spieler werden Benötigt");
                     return;
                 }
-                $form = new SimpleForm("Switch Team");
+                $form = new SimpleForm("Wechsel Team");
                 foreach ($arena->getTeams() as $team) {
                     $button = new Button($team->getColor() . $team->getName() . TextFormat::GOLD . " [" . count($team->getPlayers()) . "/" . $team->getMaxPlayers() . "]");
                     $button->addImage(Button::IMAGE_TYPE_PATH, "textures/items/bed_" . strtolower($team->getName()));

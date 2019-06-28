@@ -34,11 +34,11 @@ class JoinGameListener implements Listener
         if (strpos(strtolower(TextFormat::clean($text[0])), strtolower(TextFormat::clean(Loader::getInstance()->getPrefix()))) !== false) {
             $player = $event->getPlayer();
             if (is_null($arena = Loader::getInstance()->getArenas()[TextFormat::clean($text[1])]??null)) {
-                $player->sendMessage(TextFormat::RED . 'Arena not found');
+                $player->sendMessage(TextFormat::RED . 'Arena wurde nicht gefunden');
                 return;
             }
             if(!$arena->joinTeam($player)) {
-                $player->sendMessage(TextFormat::RED . 'Error joining');
+                $player->sendMessage(TextFormat::RED . 'Konnte nicht Joinen');
             }
         }
     }

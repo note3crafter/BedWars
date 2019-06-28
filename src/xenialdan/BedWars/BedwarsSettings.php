@@ -5,7 +5,7 @@ namespace xenialdan\BedWars;
 
 
 use pocketmine\block\BlockIds;
-use xenialdan\gameapi\DefaultSettings;
+use xenialdan\BedWars\libs\xenialdan\gameapi\DefaultSettings;
 
 class BedwarsSettings extends DefaultSettings
 {

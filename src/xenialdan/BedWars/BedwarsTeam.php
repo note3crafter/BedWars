@@ -3,7 +3,7 @@
 
 namespace xenialdan\BedWars;
 
-use xenialdan\gameapi\Team;
+use xenialdan\BedWars\libs\xenialdan\gameapi\Team;
 
 class BedwarsTeam extends Team
 {

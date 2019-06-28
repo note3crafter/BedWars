@@ -16,8 +16,8 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
-use xenialdan\gameapi\API;
-use xenialdan\gameapi\Arena;
+use xenialdan\BedWars\libs\xenialdan\gameapi\API;
+use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
 
 class SetupEventListener implements Listener
 {
@@ -84,7 +84,7 @@ class SetupEventListener implements Listener
         $settings = $arena->getSettings();
         $settings->teams[$team->getName()]["spawn"] = (array)$e->getBlock()->asVector3();
         $arena->getSettings()->save();
-        $e->getPlayer()->sendMessage("Successfully changed spawn of team " . $team->getColor() . $team->getName() . TextFormat::RESET . " to [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+        $e->getPlayer()->sendMessage("Der Spawn wurde erfolgreich gesetzt" . $team->getColor() . $team->getName() . TextFormat::RESET . " zu [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
     }
 
     /**
@@ -110,7 +110,7 @@ class SetupEventListener implements Listener
                     $s = $settings->gold;
                     unset($s[$i]);
                     $settings->gold = $s;
-                    $e->getPlayer()->sendMessage("Successfully removed gold item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("GoldSpawner wurde erfolgreich entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
                     $removed = true;
                 }
             }
@@ -121,7 +121,7 @@ class SetupEventListener implements Listener
                     $s = $settings->silver;
                     unset($s[$i]);
                     $settings->silver = $s;
-                    $e->getPlayer()->sendMessage("Successfully removed silver item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("SilberSpawner wurde erfolgreich entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
                     $removed = true;
                 }
             }
@@ -132,7 +132,7 @@ class SetupEventListener implements Listener
                     $s = $settings->bronze;
                     unset($s[$i]);
                     $settings->bronze = $s;
-                    $e->getPlayer()->sendMessage("Successfully removed bronze item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("BronzeSpawner wurde erfolgreich entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
                     $removed = true;
                 }
             }
@@ -161,32 +161,32 @@ class SetupEventListener implements Listener
         if ($e->getBlock()->getId() === Block::GOLD_BLOCK) {
             foreach ($settings->gold as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "This block is already an item spawner. Break the block to remove it");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "Der Spawner wurde bereits ausgewählt. Zerstören um Ihn zurückzusetzen");
                     return;
                 }
             }
             $settings->gold[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("Successfully added gold item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("GoldSpawner wurde erfolgreich Platziert [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
         }
         if ($e->getBlock()->getId() === Block::IRON_BLOCK) {
             foreach ($settings->silver as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "This block is already an item spawner. Break the block to remove it");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "Der Spawner wurde bereits ausgewählt. Zerstören um Ihn zurückzusetzen");
                     return;
                 }
             }
             $settings->silver[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("Successfully added silver item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("SilberSpawner wurde erfolgreich Platziert [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
         }
         if ($e->getBlock()->getId() === Block::HARDENED_CLAY) {
             foreach ($settings->bronze as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "This block is already an item spawner. Break the block to remove it");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "Der Spawner wurde bereits ausgewählt. Zerstören um Ihn zurückzusetzen");
                     return;
                 }
             }
             $settings->bronze[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("Successfully added bronze item spawner at [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("BronzeSpawner wurde erfolgreich Platziert [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
         }
         $arena->getSettings()->save();
     }
