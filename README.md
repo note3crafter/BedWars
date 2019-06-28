@@ -43,3 +43,6 @@ Was noch gemacht wurde:
 
 Wichtiges
 - Fals fehler auftreten sollten bitte immer den Crashlog schicken 
+
+Wichtiges:
+- Funktioniert nicht mit EssentialsTP
