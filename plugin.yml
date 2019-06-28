@@ -8,6 +8,8 @@ load: POSTWORLD
 softdepend:
 - DEVirion
 - gamereward
+- note3crafter
+- FlussRaplay
 prefix: "[BedWars]"
 permissions:
   bedwars.command:
