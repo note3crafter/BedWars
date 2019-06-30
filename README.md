@@ -21,6 +21,8 @@ L2: mapname
 L3: 
 L4: 
 ```
+##Setup-Video
+- https://youtu.be/KkgD1fl_lfI
 
 ## Belohnung und Gewinnnachrrichten
 [gamereward](https://github.com/thebigsmileXD/gamereward)
