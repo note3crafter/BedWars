@@ -607,7 +607,7 @@ class Loader extends Game
         $menu->getInventory()->setContents([
             $kbs,
 	    $kbs1,
-            $kbs2
+            $kbs2, 
             $gs1,
             $gs2,
             $gs3,
