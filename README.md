@@ -11,6 +11,8 @@ Benutze `/bw endsetup` wenn du Fertig bist - es Speichert deine Welt automatisch
 
 in der Datai `{arenaname}.json` kannst du Team damaging und einstellen oib man die Blöcke in der Map zerstören kann oder nicht.
 
+## Setup - Video
+- https://youtu.be/KkgD1fl_lfI
 ## Joining / Sign setup
 Die Verknüpfung erfolgt über Zeichen, aber Sie können jedes Ereignis für den Beitritt hinzufügen, das Sie möchten - in JoinEventListener.php
 
@@ -21,8 +23,6 @@ L2: mapname
 L3: 
 L4: 
 ```
-##Setup-Video
-- https://youtu.be/KkgD1fl_lfI
 
 ## Belohnung und Gewinnnachrrichten
 [gamereward](https://github.com/thebigsmileXD/gamereward)
