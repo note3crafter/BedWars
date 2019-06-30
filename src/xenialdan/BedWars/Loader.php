@@ -104,11 +104,11 @@ class Loader extends Game
     private static function getTeamNamesByAmount(int $amount): array
     {
         $teams = [
-            TextFormat::RED => "Red",
-            TextFormat::DARK_BLUE => "Blue",
-            TextFormat::GREEN => "Green",
-            TextFormat::YELLOW => "Yellow",
-            TextFormat::DARK_PURPLE => "Purple",
+            TextFormat::RED => "Rot",
+            TextFormat::DARK_BLUE => "Blau",
+            TextFormat::GREEN => "Grün",
+            TextFormat::YELLOW => "Gelb",
+            TextFormat::DARK_PURPLE => "Lila",
             TextFormat::GOLD => "Orange",
             TextFormat::LIGHT_PURPLE => "Pink",
             TextFormat::DARK_AQUA => "Cyan",
@@ -141,7 +141,7 @@ class Loader extends Game
                     } else {
                         $form = new CustomForm("Bedwars Einstellung");
                         $form->addElement(new Label("Erstelle eine Welt"));
-                        $form->addElement(new Input("Welten Namen", "Example: BW 2x1"));
+                        $form->addElement(new Input("Welten Namen", "Example: BW2x1"));
                     }
                     $form->setCallable(function (Player $player, $data) use ($new) {
                         $setup["name"] = $new ? $data[1] : $data;
@@ -219,20 +219,20 @@ class Loader extends Game
                                     $player->getInventory()->clearAll();
                                     $arena->getLevel()->stopTime();
                                     $arena->getLevel()->setTime(Level::TIME_DAY);
-                                    $player->sendMessage(TextFormat::GOLD . "Du kannst die Arena jetzt Bearbeiten.");
-                                    $player->sendMessage(TextFormat::GOLD . "Setze Gold, Silber, Bronze Blöcke und makiere Sie durch anklicken, durch das Zerstören der Blöcke wird die makierung zurückgesetzt");
+                                    $player->sendMessage(TextFormat::GOLD . "§f[§4Bed§fWars]§6 Du kannst die Arena jetzt Bearbeiten.");
+                                    $player->sendMessage(TextFormat::GOLD . "§f[§4Bed§fWars]§6 Setze Gold, Silber, Bronze Blöcke und makiere Sie durch anklicken, durch das Zerstören der Blöcke wird die makierung zurückgesetzt");
                                 });
                                 $player->sendForm($form);
                                 break;
                             }
                         case $editspawnpoints:
                             {
-                                $form = new SimpleForm($editspawnpoints, "Bearbeite die Welt und setze die Spawn Punkte der Teams");
+                                $form = new SimpleForm($editspawnpoints, "§f[§4Bed§fWars]§6 Bearbeite die Welt und setze die Spawn Punkte der Teams");
                                 foreach ($this->getArenas() as $arena) $form->addButton(new Button($arena->getLevelName()));
                                 $form->setCallable(function (Player $player, $data) {
                                     $worldname = $data;
                                     $arena = API::getArenaByLevelName($this, $worldname);
-                                    $this->getServer()->broadcastMessage("Stopping arena, reason: Admin actions", $arena->getPlayers());
+                                    $this->getServer()->broadcastMessage("§f[§4Bed§fWars]§6 Die Arena wurde von einem Admin gestoppt.", $arena->getPlayers());
                                     $arena->stopArena();
                                     $arena->setState(Arena::SETUP);
                                     if (!$this->getServer()->isLevelLoaded($worldname)) $this->getServer()->loadLevel($worldname);
@@ -245,23 +245,23 @@ class Loader extends Game
                                     $arena->getLevel()->setTime(Level::TIME_DAY);
                                     foreach ($arena->getTeams() as $team) {
                                         $item = ItemFactory::get(Item::CONCRETE, API::getMetaByColor($team->getColor()));
-                                        $item->setLore(["Spawn Punkt für das " . $team->getColor() . $team->getName() . TextFormat::RESET . " Team", "Spawn Punkt festgelegt"]);
+                                        $item->setLore(["Spawn Punkt für das " . $team->getColor() . $team->getName() . TextFormat::RESET . " Team", "§f[§4Bed§fWars]§6 Spawn Punkt festgelegt"]);
                                         $item->setCustomName($team->getColor() . $team->getName());
                                         $player->getInventory()->addItem($item);
                                     }
-                                    $player->sendMessage(TextFormat::GOLD . "Platziere die jeweiligen Blöcke um dem Spawn festzulegen");
+                                    $player->sendMessage(TextFormat::GOLD . "§f[§4Bed§fWars]§6 Platziere die jeweiligen Blöcke um dem Spawn festzulegen");
                                 });
                                 $player->sendForm($form);
                                 break;
                             }
                         case $addvillager:
                             {
-                                $form = new SimpleForm($editspawnpoints, "Setzte einen Villager um den Shop festzulegen");
+                                $form = new SimpleForm($editspawnpoints, "§f[§4Bed§fWars]§6 Setzte einen Villager um den Shop festzulegen");
                                 foreach ($this->getArenas() as $arena) $form->addButton(new Button($arena->getLevelName()));
                                 $form->setCallable(function (Player $player, $data) {
                                     $worldname = $data;
                                     $arena = API::getArenaByLevelName($this, $worldname);
-                                    $this->getServer()->broadcastMessage("Arena Gestoppt, wegen: ein Admin hat diese Arena geschlossen", $arena->getPlayers());
+                                    $this->getServer()->broadcastMessage("§f[§4Bed§fWars]§6 Die Arena wurde von rinrm Admin gestoppt", $arena->getPlayers());
                                     $arena->stopArena();
                                     $arena->setState(Arena::SETUP);
                                     if (!$this->getServer()->isLevelLoaded($worldname)) $this->getServer()->loadLevel($worldname);
@@ -273,10 +273,10 @@ class Loader extends Game
                                     $arena->getLevel()->stopTime();
                                     $arena->getLevel()->setTime(Level::TIME_DAY);
                                     $item = ItemFactory::get(Item::SPAWN_EGG, Entity::VILLAGER, 64);
-                                    $item->setLore(["Tippe um den Villager zu drehen, zum entfernen Sneaken und auf den Villager drücken"]);
+                                    $item->setLore(["§f[§4Bed§fWars]§6§ Tippe um den Villager zu drehen, zum entfernen Sneaken und auf den Villager drücken"]);
                                     $item->setCustomName(TextFormat::GOLD . TextFormat::BOLD . "Shop");
                                     $player->getInventory()->addItem($item);
-                                    $player->sendMessage(TextFormat::GOLD . "Benutze das SpawnEgg um den Villager zu setzten. Skneake und klicke auf den Villager um in zu entfernen, Durch jeweiliges drücken dreht er sich um 45 Grad");
+                                    $player->sendMessage(TextFormat::GOLD . "§f[§4Bed§fWars]§6 Benutze das SpawnEgg um den Villager zu setzten. Skneake und klicke auf den Villager um in zu entfernen, Durch jeweiliges drücken dreht er sich um 45 Grad");
                                 });
                                 $player->sendForm($form);
                                 break;
@@ -356,7 +356,7 @@ class Loader extends Game
                 unset($s[$i]);
                 $settings->bronze = $s;
                 $settings->save();
-                $this->getLogger()->debug("BronzeSpawner wurde entfernt [" . (join(", ", $spawn) . "] da an dieser Stelle kein Spawner ist"));
+                $this->getLogger()->debug("§f[§4Bed§fWars]§6 Der BronzeSpawner wurde entfernt [" . (join(", ", $spawn) . "] da an dieser Stelle kein Spawner ist"));
                 continue;
             }
             $v = new Vector3($spawn["x"] + 0.5, $spawn["y"] + 1, $spawn["z"] + 0.5);
@@ -420,7 +420,7 @@ class Loader extends Game
                 unset($s[$i]);
                 $settings->gold = $s;
                 $settings->save();
-                $this->getLogger()->debug("GoldSpawner wurde entfernt[" . (join(", ", $spawn) . "] da an dieser Stelle kein Spawner ist"));
+                $this->getLogger()->debug("§f[§4Bed§fWars]§6 Der GoldSpawner wurde entfernt[" . (join(", ", $spawn) . "] da an dieser Stelle kein Spawner ist"));
                 continue;
             }
             $v = new Vector3($spawn["x"] + 0.5, $spawn["y"] + 1, $spawn["z"] + 0.5);
@@ -454,11 +454,11 @@ class Loader extends Game
 
     public function openShop(Player $player)
     {
-        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName(TextFormat::RED . "Bed" . TextFormat::WHITE . "Wars " . TextFormat::RESET . "Shop")->readonly();
+        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName(TextFormat::RED . "§f[§4Bed§fWars]§6 Shop")->readonly();
         $menu->getInventory()->setContents([
             Item::get(ItemIds::CHAIN_CHESTPLATE)->setCustomName("Rüstung"),
             Item::get(ItemIds::SANDSTONE)->setCustomName("Blöcke"),
-            Item::get(ItemIds::STONE_PICKAXE)->setCustomName("Spitzhacke"),
+            Item::get(ItemIds::STONE_PICKAXE)->setCustomName("Spitzhacken"),
             Item::get(ItemIds::STONE_SWORD)->setCustomName("Waffen"),
             Item::get(ItemIds::BOW)->setCustomName("Bogen"),
             Item::get(ItemIds::POTION)->setCustomName("Andere"),
@@ -583,8 +583,11 @@ class Loader extends Game
         $kbs = $this->generateShopItem(Item::get(ItemIds::STICK), 1, 8, self::BRONZE);
         $kbs->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::KNOCKBACK)));
 		
-		$kbs1 = $this->generateShopItem(Item::get(ItemIds::STICK), 1, 8, self::SILVER);
+        $kbs1 = $this->generateShopItem(Item::get(ItemIds::STICK), 1, 8, self::SILVER);
         $kbs1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::KNOCKBACK), 2));
+		
+        $kbs2 = $this->generateShopItem(Item::get(ItemIds::STICK), 1, 8, self::GOLD);
+        $kbs2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::KNOCKBACK), 3));
 		
         $gs1 = $this->generateShopItem(Item::get(ItemIds::GOLD_SWORD), 1, 2, self::SILVER);
         $gs1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
@@ -603,7 +606,8 @@ class Loader extends Game
 
         $menu->getInventory()->setContents([
             $kbs,
-			$kbs1,
+	    $kbs1,
+            $kbs2
             $gs1,
             $gs2,
             $gs3,
