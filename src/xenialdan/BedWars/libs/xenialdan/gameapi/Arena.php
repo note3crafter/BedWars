@@ -381,13 +381,11 @@ class Arena
      */
     public function resetPlayer(Player $player)
     {
-        $player->setNameTag($player->getDisplayName());
         $player->setHealth($player->getMaxHealth());
         $player->setFood($player->getMaxFood());
         $player->setSaturation($player->getAttributeMap()->getAttribute(Attribute::SATURATION)->getMaxValue());
-        $player->getInventory()->clearAll();
-        $player->getCursorInventory()->clearAll();
         $player->setGamemode($this->settings->gamemode);
+		$player->getInventory()->clearAll();
         $player->setAllowFlight($this->settings->allowFlight);
         $player->removeAllEffects();
         $player->setDataFlag(Player::DATA_FLAGS, Player::DATA_FLAG_IMMOBILE, false);
