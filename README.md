@@ -46,5 +46,6 @@ Was noch gemacht wurde:
 Wichtiges
 - Falls Fehler auftreten sollten bitte immer den Crashlog schicken 
 
-Wichtiges:
-- Funktioniert nicht mit EssentialsTP
+Mit welchem Plugins ed nicht Comoatible ist
+- PureEnytyX (allgemein Mob Plugins) 
+- EssentialsTP
