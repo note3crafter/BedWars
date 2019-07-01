@@ -20,7 +20,7 @@ class BedwarsCommand extends PluginCommand
         parent::__construct("bw", $plugin);
         $this->setAliases(["bedwars"]);
         $this->setPermission("bedwars.command");
-        $this->setDescription("Bedwars Einstellung");
+        $this->setDescription("§f[§4Bed§fWars]§6 Einstellung");
         $this->setUsage("/bw | /bw setup | /bw endsetup | /leave | /start | /bw stop | /bw status | /bw info");
     }
 
@@ -29,11 +29,11 @@ class BedwarsCommand extends PluginCommand
         /** @var Player $sender */
         $return = $sender->hasPermission($this->getPermission());
         if (!$return) {
-            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
             return true;
         }
         if (!$sender instanceof Player) {
-            $sender->sendMessage(TextFormat::RED . "This command is for players only");
+            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du kannst diesen Befehl hier nicht ausführen!");
             return false;
         }
         try {
@@ -42,7 +42,7 @@ class BedwarsCommand extends PluginCommand
                 case "setup":
                     {
                         if (!$sender->hasPermission("bedwars.command.setup")) {
-                            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         /** @var Game $p */
@@ -53,7 +53,7 @@ class BedwarsCommand extends PluginCommand
                 case "leave":
                     {
                         if (!$sender->hasPermission("bedwars.command.leave")) {
-                            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         $arena = API::getArenaOfPlayer($sender);
@@ -69,7 +69,7 @@ class BedwarsCommand extends PluginCommand
                 case "endsetup":
                     {
                         if (!$sender->hasPermission("bedwars.command.endsetup")) {//TODO only when setup
-                            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         /** @var Game $p */
@@ -80,7 +80,7 @@ class BedwarsCommand extends PluginCommand
                 case "stop":
                     {
                         if (!$sender->hasPermission("bedwars.command.stop")) {
-                            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         API::getArenaByLevel(Loader::getInstance(), $sender->getLevel())->stopArena();
@@ -89,20 +89,20 @@ class BedwarsCommand extends PluginCommand
                 case "start":
                     {
                         if (!$sender->hasPermission("bedwars.command.forcestart")) {
-                            $sender->sendMessage(TextFormat::RED . "Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         $arena = API::getArenaOfPlayer($sender);
                         if(is_null($arena) || !API::isArenaOf($this->getPlugin(), $arena->getLevel())){
                             /** @var Game $plugin */
                             $plugin = $this->getPlugin();
-                            $sender->sendMessage(TextFormat::RED."Du bist in keiner Runde ". $plugin->getPrefix());
+                            $sender->sendMessage(TextFormat::RED."§f[§4Bed§fWars] §6Du bist in keiner Runde ". $plugin->getPrefix());
                             return true;
                         }
                         $arena->startTimer($arena->getOwningGame());
                         $arena->forcedStart = true;
                         $arena->setTimer(5);
-                        $sender->getServer()->broadcastMessage("Das Spiel wurde gestartet von " . $sender->getDisplayName(), $arena->getPlayers());
+                        $sender->getServer()->broadcastMessage("§f[§4Bed§fWars] §6Das Spiel wurde gestartet von " . $sender->getDisplayName(), $arena->getPlayers());
                         break;
                     }
                 default:
