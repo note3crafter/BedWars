@@ -12,7 +12,7 @@ class BedwarsSettings extends DefaultSettings
     public $noDamageTeam = true;
     public $noEnvironmentDamage = true;
     public $clearInventory = true;
-    public $noBlockDrops = false;
+    public $noBlockDrops = true;
     public $immutableWorld = false;
     public $noBreak = true;
     public $noBuild = true;
