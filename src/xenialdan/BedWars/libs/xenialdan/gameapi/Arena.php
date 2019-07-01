@@ -385,7 +385,8 @@ class Arena
         $player->setFood($player->getMaxFood());
         $player->setSaturation($player->getAttributeMap()->getAttribute(Attribute::SATURATION)->getMaxValue());
         $player->setGamemode($this->settings->gamemode);
-		$player->getInventory()->clearAll();
+        $player->getInventory()->clearAll();
+        $player->getArmorInventory()->clearAll(); 
         $player->setAllowFlight($this->settings->allowFlight);
         $player->removeAllEffects();
         $player->setDataFlag(Player::DATA_FLAGS, Player::DATA_FLAG_IMMOBILE, false);
