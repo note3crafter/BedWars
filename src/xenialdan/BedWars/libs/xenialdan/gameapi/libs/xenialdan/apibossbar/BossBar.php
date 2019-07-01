@@ -104,7 +104,7 @@ class BossBar
     public function removePlayer(Player $player): BossBar
     {
         if (!isset($this->players[$player->getId()])) {
-            MainLogger::getLogger()->debug("Spieler wurde entfernt (" . $this . ")");
+            MainLogger::getLogger()->debug("§f[§4Bed§fWars] §6Spieler wurde entfernt (" . $this . ")");
             return $this;
         }
         $this->sendRemoveBossPacket([$player]);
