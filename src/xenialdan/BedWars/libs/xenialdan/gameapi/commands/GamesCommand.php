@@ -25,10 +25,10 @@ class GamesCommand extends Command
         /** @var Player $sender */
         $return = $sender->hasPermission($this->getPermission());
         if (!$return) {
-            $sender->sendMessage(TextFormat::RED . "You do not have permissions to run this command");
+            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §eDu hast keine Berechtigung um diesen Command auszuführen.");
             return true;
         }
-        $sender->sendMessage(TextFormat::GOLD . "=== Available games ===");
+        $sender->sendMessage(TextFormat::GOLD . "=== Verfügbare Spiele ===");
         /** @var Game $game */
         foreach (API::getGames() as $game)
             $sender->sendMessage(($game->isEnabled() ? TextFormat::GREEN : TextFormat::RED) . $game->getPrefix() . ($game->isEnabled() ? TextFormat::GREEN : TextFormat::RED) . " v" . $game->getDescription()->getVersion() . " by " . TextFormat::AQUA . $game->getAuthors() . ($game->isEnabled() ? TextFormat::GREEN : TextFormat::RED) . ($game->getDescription()->getDescription() !== "" ?: ($game->isEnabled() ? TextFormat::GREEN : TextFormat::RED) . $game->getDescription()->getDescription()));
