@@ -14,7 +14,7 @@ in der Datai `{arenaname}.json` kannst du Team damaging und einstellen oib man d
 ## Setup - Video
 - <h3>Video:</h3>
 
-<a align="center" href="https://www.youtube.com/watch?v=KkgD1fl_lfI&t"><img src="http://img.youtube.com/vi/KkgD1fl_lfI&t/0.jpg"></a>
+<a align="center" href="https://www.youtube.com/watch?v=KkgD1fl_lfI&t"><img src="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiI7basxJTjAhURJ1AKHXjPBA8QwqsBMAB6BAgJEAQ&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DKkgD1fl_lfI&usg=AOvVaw19hWCA-4hSpyR8QXpbg-Cy"></a>
 
 ## Joining / Sign setup
 Die Verknüpfung erfolgt über Zeichen, aber Sie können jedes Ereignis für den Beitritt hinzufügen, das Sie möchten - in JoinEventListener.php
