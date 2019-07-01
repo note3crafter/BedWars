@@ -49,3 +49,8 @@ Wichtiges
 Mit welchem Plugins ed nicht Comoatible ist
 - PureEnytyX (allgemein Mob Plugins) 
 - EssentialsTP
+
+Mein Discord:
+<div align="center">
+	<a href="https://discord.gg/XwXKuvy">
+        <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="discord">
