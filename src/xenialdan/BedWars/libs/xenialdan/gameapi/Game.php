@@ -183,41 +183,41 @@ abstract class Game extends PluginBase
             switch ($arena->getState()) {
                 case Arena::IDLE:
                     {
-                        $status = TextFormat::GREEN . "Empty";
+                        $status = TextFormat::GREEN . "Leer";
                         break;
                     }
                 case Arena::WAITING:
                     {
-                        $status = TextFormat::GREEN . "Needs players";
+                        $status = TextFormat::GREEN . "Benötigt Spieler";
                         break;
                     }
                 case Arena::STARTING:
                     {
-                        $status = TextFormat::GOLD . "Starting";
+                        $status = TextFormat::GOLD . "Startet";
                         break;
                     }
                 case Arena::INGAME:
                     {
-                        $status = TextFormat::RED . "Running";
+                        $status = TextFormat::RED . "Läuft";
                         break;
                     }
                 case Arena::STOP:
                     {
-                        $status = TextFormat::RED . "Reloading";
+                        $status = TextFormat::RED . "Restartet";
                         break;
                     }
                 case Arena::SETUP:
                     {
-                        $status = TextFormat::DARK_RED . "Inaccessible";
+                        $status = TextFormat::DARK_RED . "Wartung";
                         break;
                     }
                 default:
                     {
-                        $status = "Unknown";
+                        $status = "Unbekannt";
                     }
             }
             $playercount = round(count($this->getServer()->getOnlinePlayers()) / max(1, count($arena->getPlayers())), 0) * 100;
-            $arenas[] = "\"" . $arena->getLevelName() . "\" - State: " . $status . TextFormat::RESET . " Players: " . count($arena->getPlayers()) . "/" . $arena->getMaxPlayers() . " (" . $playercount . "%) Time: " . round($arena->getLevel()->getTickRateTime(), 2) . "ms";
+            $arenas[] = "\"" . $arena->getLevelName() . "\" - Status: " . $status . TextFormat::RESET . " Spieler: " . count($arena->getPlayers()) . "/" . $arena->getMaxPlayers() . " (" . $playercount . "%) Time: " . round($arena->getLevel()->getTickRateTime(), 2) . "ms";
             $loads[] = $arena->getLevel()->getTickRateTime();
         }
         $lines["Players Total"] = TextFormat::RESET . "N/A";
