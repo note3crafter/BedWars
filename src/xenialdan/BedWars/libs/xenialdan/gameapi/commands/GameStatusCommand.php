@@ -16,7 +16,7 @@ class GameStatusCommand extends Command
 {
     public function __construct()
     {
-        parent::__construct("gamestatus", "See the status of all games (performance, state, players) or a specific game", "/gamestatus [game]");
+        parent::__construct("gamestatus", "§f[§4Bed§fWars] §6Sieht den Status von allen Spielen (performance, state, players) or a specific game", "/gamestatus [game]");
         $this->setPermission(Permission::DEFAULT_OP);
     }
 
@@ -25,7 +25,7 @@ class GameStatusCommand extends Command
         /** @var Player $sender */
         $return = $sender->hasPermission($this->getPermission());
         if (!$return) {
-            $sender->sendMessage(TextFormat::RED . "You do not have permissions to run this command");
+            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Command auszuführen");
             return true;
         }
         $tocheck = [];
@@ -33,13 +33,13 @@ class GameStatusCommand extends Command
             if (($game = API::getGame(($name = array_shift($args)))) instanceof Game) {
                 $tocheck[] = $game;
             } else {
-                $sender->sendMessage(TextFormat::RED . "Game $name cannot be found. Check /games");
+                $sender->sendMessage(TextFormat::RED . "Spiel $name wurde nicht gefunden. Benutze /games");
                 return true;
             }
         } else {
             $tocheck = API::getGames();
         }
-        $sender->sendMessage(TextFormat::GOLD . "=== Game Status ===");
+        $sender->sendMessage(TextFormat::GOLD . "=== Spiel Status ===");
         /** @var Game $game */
         foreach ($tocheck as $game) {
             $enabledColor = $game->isEnabled() ? TextFormat::GREEN : TextFormat::RED;
