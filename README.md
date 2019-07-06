@@ -31,9 +31,7 @@ L4:
 [gamereward](https://github.com/thebigsmileXD/gamereward)
 
 ## In Zukunft
-- [ ] Settings for villager shop (entity used, items)
 - [ ] Spectator mode
-- [ ] Scoreboard
 
 Plugin Code von:
 - XenialDan
@@ -47,10 +45,10 @@ Was noch gemacht wurde:
 - Plugin wurde auf 3.8.3 Erfolgreich ohne anderen Plugins getestet
 
 Wichtiges
-- Falls Fehler auftreten sollten bitte immer den Crashlog schicken 
+- Falls Fehler auftreten sollten bitte in issues immer den Crashlog schicken 
 
-Mit welchem Plugins ed nicht Comoatible ist
-- PureEnytyX (allgemein Mob Plugins) 
+Mit welchem Plugins es nicht Compatible ist
+- PureEnityX (allgemein Mob Plugins) 
 - EssentialsTP
 
 Mein Discord:
