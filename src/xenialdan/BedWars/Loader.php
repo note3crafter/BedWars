@@ -461,7 +461,7 @@ class Loader extends Game
             Item::get(ItemIds::STONE_PICKAXE)->setCustomName("Spitzhacken"),
             Item::get(ItemIds::STONE_SWORD)->setCustomName("Waffen"),
             Item::get(ItemIds::BOW)->setCustomName("Bogen"),
-            Item::get(ItemIds::POTION)->setCustomName("Andere"),
+            Item::get(ItemIds::POTION)->setCustomName("Sonstiges"),
 			Item::get(ItemIds::COOKED_BEEF)->setCustomName("Essen")
         ]);
         $menu->setListener(function (Player $player, Item $clicked, Item $clickedWith, SlotChangeAction $action): bool {
@@ -653,7 +653,7 @@ class Loader extends Game
 
     private function openShopSpecial(Player $player)
     {
-        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName("Special shop")->readonly();
+        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName("Special Shop")->readonly();
         $menu->setInventoryCloseListener($this->subToMainShop());
         $menu->getInventory()->setContents([
             $this->generateShopItem(Item::get(ItemIds::ENDER_PEARL), 1, 4 * 1, self::GOLD),
@@ -664,7 +664,7 @@ class Loader extends Game
             $this->generateShopItem(Item::get(ItemIds::SPLASH_POTION, Potion::WEAKNESS), 1, 2 * 1, self::GOLD),
             $this->generateShopItem(Item::get(ItemIds::SPLASH_POTION, Potion::POISON), 1, 2 * 1, self::GOLD),
             $this->generateShopItem(Item::get(ItemIds::BUCKET, 1), 1, 2 * 1, self::SILVER),
-			$this->generateShopItem(Item::get(ItemIds::COBWEB), 1, 32 * 1, self::BRONZE),
+			 $this->generateShopItem(Item::get(ItemIds::COBWEB), 1, 32 * 1, self::BRONZE),
         ]);
         $menu->setListener(function (Player $player, Item $clicked, Item $clickedWith, SlotChangeAction $action): bool {
             $this->buyItem($clicked, $player);
@@ -696,7 +696,6 @@ class Loader extends Game
     {
         return function (Player $player, BaseFakeInventory $inventory) {
             $player->removeWindow($inventory);
-            $this->openShop($player);
         };
     }
 
