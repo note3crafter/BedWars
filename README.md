@@ -1,3 +1,7 @@
+# Update
+- Update to 1.12.0 Pocketmine version 3.9.0 Bitte erstelle eine Issue fals Fehler auftreten sollten
+- Nicht mehr Kompatible zum CityBuild (Items Behält man zurzeit sobald die Runde zuende ist wird jedoch Zukünftig gefixt)
+
 # BedWars - German Edition
 <!-- todo poggit badges -->
 Ein neues Bedwars Plugin von XenialDan
@@ -42,10 +46,7 @@ Plugin repariert von:
 
 Was noch gemacht wurde:
 - EnderChest-Items werden NICHT entfernt
-- Plugin wurde auf 3.8.3 Erfolgreich ohne anderen Plugins getestet
-
-Wichtiges
-- Falls Fehler auftreten sollten bitte in issues immer den Crashlog schicken 
+- Plugin wurde auf 3.9.0 Erfolgreich ohne anderen Plugins getestet
 
 Mit welchem Plugins es nicht Compatible ist
 - PureEnityX (allgemein Mob Plugins) 
