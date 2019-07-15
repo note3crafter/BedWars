@@ -51,6 +51,9 @@ class Team{
 	 */
 	public function removePlayer(Player $player){
 		unset($this->players[$player->getLowerCaseName()]);
+		$player->getInventory()->clearAll();
+		$player->getArmorInventory()->clearAll();
+		$player->getCursorInventory()->clearAll();
 	}
 
 	/**
