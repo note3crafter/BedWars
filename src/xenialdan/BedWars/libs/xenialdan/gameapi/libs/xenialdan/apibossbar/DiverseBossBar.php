@@ -8,7 +8,7 @@ use pocketmine\entity\Attribute;
 use pocketmine\entity\AttributeMap;
 use pocketmine\entity\DataPropertyManager;
 use pocketmine\entity\Entity;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\network\mcpe\protocol\BossEventPacket;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
 use pocketmine\network\mcpe\protocol\UpdateAttributesPacket;
@@ -175,7 +175,7 @@ class DiverseBossBar extends BossBar
      */
     protected function sendSpawnPacket(array $players): void
     {
-        $pk = new AddEntityPacket();
+        $pk = new AddActorPacket();
         $pk->entityRuntimeId = $this->entityId;
         $pk->type = $this->getEntity() instanceof Entity ? $this->getEntity()::NETWORK_ID : static::NETWORK_ID;
         foreach ($players as $player) {
