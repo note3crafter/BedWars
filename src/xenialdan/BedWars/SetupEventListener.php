@@ -110,7 +110,7 @@ class SetupEventListener implements Listener
                     $s = $settings->gold;
                     unset($s[$i]);
                     $settings->gold = $s;
-                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der GoldSpawner wurde entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §eGoldSpawner§6 wurde entfernt bei §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
                     $removed = true;
                 }
             }
@@ -121,7 +121,7 @@ class SetupEventListener implements Listener
                     $s = $settings->silver;
                     unset($s[$i]);
                     $settings->silver = $s;
-                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6SilberSpawner wurde entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §7SilberSpawner§6 wurde entfernt bei §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
                     $removed = true;
                 }
             }
@@ -132,7 +132,7 @@ class SetupEventListener implements Listener
                     $s = $settings->bronze;
                     unset($s[$i]);
                     $settings->bronze = $s;
-                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6BronzeSpawner wurde entfernt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde entfernt bei §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
                     $removed = true;
                 }
             }
@@ -161,32 +161,32 @@ class SetupEventListener implements Listener
         if ($e->getBlock()->getId() === Block::GOLD_BLOCK) {
             foreach ($settings->gold as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der Spawner wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der §eGoldSpawner§6 wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
                     return;
                 }
             }
             $settings->gold[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §eGoldSpawner§6 wurde gesetzt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §eGoldSpawner§6 wurde gesetzt §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
         }
         if ($e->getBlock()->getId() === Block::IRON_BLOCK) {
             foreach ($settings->silver as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der Spawner wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der §7SilberSpawner§6 wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
                     return;
                 }
             }
             $settings->silver[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §7SilberSpawner§6 wurde gesetzt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §7SilberSpawner§6 wurde gesetzt §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
         }
         if ($e->getBlock()->getId() === Block::HARDENED_CLAY) {
             foreach ($settings->bronze as $i => $v3) {
                 if ($v3["x"] === $vector3["x"] && $v3["y"] === $vector3["y"] && $v3["z"] === $vector3["z"]) {
-                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der Spawner wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
+                    $e->getPlayer()->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde bereits ausgewählt. Zerstöre ihn um ihn zurückzusetzen.");
                     return;
                 }
             }
             $settings->bronze[] = (array)$e->getBlock()->asVector3();
-            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde gesetzt [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+            $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde gesetzt §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
         }
         $arena->getSettings()->save();
     }
