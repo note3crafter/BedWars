@@ -13,10 +13,8 @@ Benutze `/bw endsetup` wenn du Fertig bist - es Speichert deine Welt automatisch
 
 in der Datai `{arenaname}.json` kannst du Team damaging und einstellen oib man die Blöcke in der Map zerstören kann oder nicht.
 
-## Setup - Video
-- <h3>Video:</h3>
-
-<a align="center" href="https://www.bing.com/th?id=OIP.Bfka-Yt0ZNwMPLeyiYlAuAHaEK&w=268&h=160&c=7&o=5&pid=1.7"></a>
+## Tutorial
+[Bedwars-Setup](https://youtu.be/KkgD1fl_lfI)
 
 ## Joining / Sign setup
 Die Verknüpfung erfolgt über Zeichen, aber Sie können jedes Ereignis für den Beitritt hinzufügen, das Sie möchten - in JoinEventListener.php
