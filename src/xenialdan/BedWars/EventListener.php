@@ -1,148 +1,46 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 namespace xenialdan\BedWars;
 
-use pocketmine\block\Bed;
-use pocketmine\entity\Villager;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\block\SignPost;
 use pocketmine\event\Listener;
-use pocketmine\item\ItemIds;
-use pocketmine\network\mcpe\protocol\PlaySoundPacket;
-use pocketmine\Player;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\tile\Sign;
 use pocketmine\utils\TextFormat;
-use xenialdan\BedWars\libs\xenialdan\customui\elements\Button;
-use xenialdan\BedWars\libs\xenialdan\customui\windows\SimpleForm;
-use xenialdan\BedWars\libs\xenialdan\gameapi\API;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Team;
 
 /**
- * Class EventListener
+ * Class JoinListener
  * @package xenialdan\XBedWars
- * Listens for all normal events
+ * Listens for interacts for joining games or teams
  */
-class EventListener implements Listener
+class JoinGameListener implements Listener
 {
 
-    public function onDamage(EntityDamageEvent $event)
+    public function onInteract(PlayerInteractEvent $event)
     {
-        if (API::isArenaOf(Loader::getInstance(), $event->getEntity()->getLevel())) {
-            if (!$event->getEntity() instanceof Player) {
-                $event->setCancelled();
-                if ($event instanceof EntityDamageByEntityEvent) {
-                    if (($damager = $event->getDamager()) instanceof Player) {
-                        if ($event->getEntity() instanceof Villager) {
-                            if (($arena = API::getArenaByLevel(Loader::getInstance(), $event->getEntity()->getLevel())) instanceof Arena) {
-                                if ($arena->getState() !== Arena::INGAME /*&& $arena->getState() !== Arena::SETUP*/) {
-                                    $event->setCancelled();
-                                    return;
-                                }
-                                Loader::getInstance()->openShop($damager);
-                            }
-                        }
-                    }
-                }
-            }
-            return;
-        }/*
-        if (API::isArena(Loader::getInstance(), ($entity = $event->getEntity())->getLevel()) && API::isPlaying($entity, Loader::getInstance())) {
-        if (!($arena = API::getArenaByLevel(Loader::getInstance(), $entity->getLevel())) instanceof Arena) return;
-            if ($arena->getState() !== Arena::INGAME && $arena->getState() !== Arena::SETUP) {
-                $event->setCancelled();
-                return;
-            }
-            if ($event instanceof EntityDamageByEntityEvent) {
-                if (($damager = $event->getDamager()) instanceof Player) {
-                    if (API::getTeamOfPlayer($entity)->inTeam($damager))
-                        $event->setCancelled();
-                    return;
-                }
-            }
-        }*/
-    }
-
-    public function onBlockBreakEvent(BlockBreakEvent $event)
-    {
-        $level = ($entity = $event->getPlayer())->getLevel();
-        if (API::isPlaying($entity, Loader::getInstance())) {
-            $block = $event->getBlock();
-            if ($block instanceof Bed) {
-                $bedTile = $level->getTile($block);
-                if ($bedTile instanceof \pocketmine\tile\Bed) {
-                    $event->setDrops([]);
-                    $c = $bedTile->getColor();
-                    /** @var BedwarsTeam $attackedTeam */
-                    $attackedTeam = API::getTeamByColor(Loader::getInstance(), $event->getBlock()->getLevel(), API::getColorByMeta($c));
-                    if (is_null($attackedTeam)) {//no team but bed for color
-                        Loader::getInstance()->getLogger()->notice("§f[§4Bed§fwars]§6 Versuche nicht ein Bett zu Zerstören obwohl dieses Team nicht existiert. Vielleicht repaierst du die Map. Bed: Color: " . API::getColorByMeta($c) . "" . $event->getBlock() . " " . $event->getBlock()->asVector3() . " " . $event->getBlock()->getLevel()->getName());
-                        return;
-                    }
-                    $event->setCancelled();
-                    if ($attackedTeam->inTeam($entity)) {
-                        $entity->sendTip(TextFormat::RED . "§f[§4Bed§fwars]§6 Du kannst dein eigenes Bed nicht Zerstören!");//TODO add a warning to the player?
-                        return;
-                    } else {
-                        if ($attackedTeam->isBedDestroyed()) return;
-                        $event->setCancelled(false);
-                        $attackedTeam->setBedDestroyed();
-                        $teamOfPlayer = API::getTeamOfPlayer($entity);//TODO test if still happens in setup
-                        if (is_null($teamOfPlayer)) {
-                            var_dump("Still happens");
-                            $event->setCancelled(false);
-                            return;
-                        }
-                        Loader::getInstance()->getServer()->broadcastTitle(TextFormat::RED . "§6Dein Bett wurde Zerstört", TextFormat::RED . "vom Team " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
-                        foreach ($attackedTeam->getPlayers() as $attackedTeamPlayer) {
-                            $attackedTeamPlayer->setSpawn($attackedTeamPlayer->getServer()->getDefaultLevel()->getSafeSpawn());
-                        }
-                        Loader::getInstance()->getServer()->broadcastTitle($attackedTeam->getColor() . "Das Bett vom Team " . $attackedTeam->getName(), $attackedTeam->getColor() . "wurde vom Team Zerstört " . $teamOfPlayer->getColor() . $teamOfPlayer->getName(), -1, -1, -1, $attackedTeam->getPlayers());
-                        $spk = new PlaySoundPacket();
-                        [$spk->x, $spk->y, $spk->z] = [$entity->x, $entity->y, $entity->z];
-                        $spk->volume = 1;
-                        $spk->pitch = 0.0;
-                        $spk->soundName = "mob.enderdragon.end";
-                        var_dump($spk);
-                        $entity->getLevel()->broadcastGlobalPacket($spk);
-                        #if (count($arena->getPlayers()) <= 1) $arena->stopArena();
-                    }
-                }
+        $action = $event->getAction();
+        $block = $event->getBlock();
+        if ($action === PlayerInteractEvent::RIGHT_CLICK_BLOCK && $block instanceof SignPost) {
+            /** @var $tile Sign */
+            if (($tile = $block->getLevel()->getTile($block)) instanceof Sign) {
+                $this->onClickSign($event, $tile->getText());
             }
         }
     }
 
-    public function onBlockPlaceEvent(BlockPlaceEvent $event)
+    public function onClickSign($event, array $text)
     {
-        if (!API::isArenaOf(Loader::getInstance(), $event->getBlock()->getLevel())) return;
-        if (($arena = API::getArenaByLevel(Loader::getInstance(), $event->getBlock()->getLevel())) instanceof Arena) {
-            if (($arena->getState() === Arena::STARTING || $arena->getState() === Arena::WAITING) && $event->getItem()->getId() === ItemIds::BED) {
-                $event->setCancelled();
-                $player = $event->getPlayer();
-                /** @var Team $team */
-                if(count(($team = $arena->getTeamByPlayer($player))->getPlayers()) <= $team->getMinPlayers()){
-                    $player->sendMessage(TextFormat::RED.TextFormat::BOLD."§f[§4Bed§fwars]§6 Du kannst das Team nicht wechseln ".$team->getMinPlayers(). " Es werden noch Spieler Benötigt");
-                    return;
-                }
-                $form = new SimpleForm("§6Wechsle das Team");
-                foreach ($arena->getTeams() as $team) {
-                    $button = new Button($team->getColor() . $team->getName() . TextFormat::GOLD . " [" . count($team->getPlayers()) . "/" . $team->getMaxPlayers() . "]");
-                    $button->addImage(Button::IMAGE_TYPE_PATH, "textures/items/bed_" . strtolower($team->getName()));
-                    $form->addButton($button);
-                }
-                $form->setCallable(function (Player $player, $data) use ($arena, $form) {
-                    $player->getInventory()->clearAll();
-                    $data = TextFormat::clean(substr($data, 0, strpos($data, " ")));
-                    $arena->joinTeam($player, $data);
-                });
-                $player->sendForm($form);
+        /** @var PlayerInteractEvent $event */
+        if (strpos(strtolower(TextFormat::clean($text[0])), strtolower(TextFormat::clean(Loader::getInstance()->getPrefix()))) !== false) {
+            $player = $event->getPlayer();
+            if (is_null($arena = Loader::getInstance()->getArenas()[TextFormat::clean($text[1])]??null)) {
+                $player->sendMessage(TextFormat::RED . '§f[§4Bed§fWars] §6Die Arena wurde nicht gefunden.');
                 return;
             }
-            /*if ($arena->getState() !== Arena::INGAME && $arena->getState() !== Arena::SETUP) {
-                $event->setCancelled();
-            }*/
+            if(!$arena->joinTeam($player)) {
+                $player->sendMessage(TextFormat::RED . '§f[§4Bed§fWars] §6Du Konntest nicht Joinen.');
+            }
         }
-
     }
+
 }
