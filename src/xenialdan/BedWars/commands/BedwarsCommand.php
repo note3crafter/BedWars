@@ -10,8 +10,8 @@ use pocketmine\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\utils\TextFormat;
 use xenialdan\BedWars\Loader;
-use xenialdan\BedWars\libs\xenialdan\gameapi\API;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Game;
+use xenialdan\gameapi\API;
+use xenialdan\gameapi\Game;
 
 class BedwarsCommand extends PluginCommand
 {
@@ -38,11 +38,11 @@ class BedwarsCommand extends PluginCommand
         }
         try {
             $return = true;
-            switch ($args[0] ?? "setup") {
+            switch ($args[0] ?? "help") {
                 case "setup":
                     {
                         if (!$sender->hasPermission("bedwars.command.setup")) {
-                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         /** @var Game $p */
@@ -53,7 +53,7 @@ class BedwarsCommand extends PluginCommand
                 case "leave":
                     {
                         if (!$sender->hasPermission("bedwars.command.leave")) {
-                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         $arena = API::getArenaOfPlayer($sender);
@@ -69,7 +69,7 @@ class BedwarsCommand extends PluginCommand
                 case "endsetup":
                     {
                         if (!$sender->hasPermission("bedwars.command.endsetup")) {//TODO only when setup
-                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         /** @var Game $p */
@@ -80,16 +80,16 @@ class BedwarsCommand extends PluginCommand
                 case "stop":
                     {
                         if (!$sender->hasPermission("bedwars.command.stop")) {
-                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         API::getArenaByLevel(Loader::getInstance(), $sender->getLevel())->stopArena();
                         break;
                     }
-                case "start":
+                case "forcestart":
                     {
                         if (!$sender->hasPermission("bedwars.command.forcestart")) {
-                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §6Du hast keine Berechtigung um diesen Befehl auszuführen");
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
                             return true;
                         }
                         $arena = API::getArenaOfPlayer($sender);
@@ -103,6 +103,16 @@ class BedwarsCommand extends PluginCommand
                         $arena->forcedStart = true;
                         $arena->setTimer(5);
                         $sender->getServer()->broadcastMessage("§f[§4Bed§fWars] §6Das Spiel wurde gestartet von " . $sender->getDisplayName(), $arena->getPlayers());
+                        break;
+                    }
+                case "help":
+                    {
+                        if (!$sender->hasPermission("bedwars.command.help")) {
+                            $sender->sendMessage(TextFormat::RED . "§f[§4Bed§fWars] §cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                            return true;
+                        }
+                        $sender->sendMessage($this->getUsage());
+                        $return = true;
                         break;
                     }
                 default:
