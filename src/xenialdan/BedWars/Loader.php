@@ -139,7 +139,7 @@ class Loader extends Game
                             $form->addButton(new Button($worldName));
                         }
                     } else {
-                        $form = new CustomForm("§f[§4Bed§fwars]§6 Einstellung")
+                        $form = new CustomForm("§f[§4Bed§fwars]§6 Einstellung");
                         $form->addElement(new Label("§6Erstelle eine Welt"));
                         $form->addElement(new Input("§6Welten Namen", "Beispiel: BW2x1"));
                     }
