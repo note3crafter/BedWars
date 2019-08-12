@@ -2,9 +2,9 @@
 
 namespace xenialdan\BedWars;
 
-use xenialdan\BedWars\libs\muqsit\invmenu\inventories\BaseFakeInventory;
-use xenialdan\BedWars\libs\muqsit\invmenu\InvMenu;
-use xenialdan\BedWars\libs\muqsit\invmenu\InvMenuHandler;
+use muqsit\invmenu\inventories\BaseFakeInventory;
+use muqsit\invmenu\InvMenu;
+use muqsit\invmenu\InvMenuHandler;
 use pocketmine\block\BlockIds;
 use pocketmine\entity\Entity;
 use pocketmine\entity\object\ItemEntity;
@@ -27,17 +27,17 @@ use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use xenialdan\BedWars\commands\BedwarsCommand;
 use xenialdan\BedWars\task\SpawnItemsTask;
-use xenialdan\BedWars\libs\xenialdan\customui\elements\Button;
-use xenialdan\BedWars\libs\xenialdan\customui\elements\Input;
-use xenialdan\BedWars\libs\xenialdan\customui\elements\Label;
-use xenialdan\BedWars\libs\xenialdan\customui\elements\StepSlider;
-use xenialdan\BedWars\libs\xenialdan\customui\windows\CustomForm;
-use xenialdan\BedWars\libs\xenialdan\customui\windows\ModalForm;
-use xenialdan\BedWars\libs\xenialdan\customui\windows\SimpleForm;
-use xenialdan\BedWars\libs\xenialdan\gameapi\API;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Game;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Team;
+use xenialdan\customui\elements\Button;
+use xenialdan\customui\elements\Input;
+use xenialdan\customui\elements\Label;
+use xenialdan\customui\elements\StepSlider;
+use xenialdan\customui\windows\CustomForm;
+use xenialdan\customui\windows\ModalForm;
+use xenialdan\customui\windows\SimpleForm;
+use xenialdan\gameapi\API;
+use xenialdan\gameapi\Arena;
+use xenialdan\gameapi\Game;
+use xenialdan\gameapi\Team;
 
 class Loader extends Game
 {
@@ -139,7 +139,7 @@ class Loader extends Game
                             $form->addButton(new Button($worldName));
                         }
                     } else {
-                        $form = new CustomForm("§f[§4Bed§fwars]§6 Einstellung");
+                        $form = new CustomForm("§f[§4Bed§fwars]§6 Einstellung")
                         $form->addElement(new Label("§6Erstelle eine Welt"));
                         $form->addElement(new Input("§6Welten Namen", "Beispiel: BW2x1"));
                     }
@@ -249,7 +249,7 @@ class Loader extends Game
                                         $item->setCustomName($team->getColor() . $team->getName());
                                         $player->getInventory()->addItem($item);
                                     }
-                                    $player->sendMessage(TextFormat::GOLD . "§f[§4Bed§fWars]§6 Platziere die jeweiligen Blöcke um dem Spawn festzulegen");
+                                    $player->sendMessage(TextFormat::GOLD . "Place the concrete blocks to set the team spawn points");
                                 });
                                 $player->sendForm($form);
                                 break;
@@ -484,9 +484,6 @@ class Loader extends Game
                 case ItemIds::POTION:
                     $this->openShopSpecial($player);
                     break;
-				case ItemIds::COOKED_BEEF:
-					$this->openShopEat($player);
-					break;
             }
             return true;
         });
@@ -495,7 +492,7 @@ class Loader extends Game
 
     private function openShopArmor(Player $player)
     {
-        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName("§f[§4Bed§fwars]§6 Rüstungs Shop")->readonly();
+       $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName("§f[§4Bed§fwars]§6 Rüstungs Shop")->readonly();
         $menu->setInventoryCloseListener($this->subToMainShop());
         //enchanted and colored items
         $lc = $this->generateShopItem(Item::get(ItemIds::LEATHER_CAP), 1, 2 * 1, self::BRONZE);
@@ -535,11 +532,6 @@ class Loader extends Game
             $this->generateShopItem(Item::get(ItemIds::SANDSTONE), 16, 0.5 * 16, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::SANDSTONE), 32, 0.5 * 32, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::SANDSTONE), 64, 0.5 * 64, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::AIR), 0, 0 * 0, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::AIR), 0, 0 * 0, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::AIR), 0, 0 * 0, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::AIR), 0, 0 * 0, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::AIR), 0, 0 * 0, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::END_STONE), 1, 8 * 1, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::END_STONE), 4, 8 * 4, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::END_STONE), 16, 8 * 16, self::BRONZE),
@@ -561,7 +553,7 @@ class Loader extends Game
         $ipe1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::EFFICIENCY)));
         $gpe2 = $this->generateShopItem(Item::get(ItemIds::GOLD_PICKAXE), 1, 4, self::GOLD);
         $gpe2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::EFFICIENCY), 2));
-
+		
         $menu->getInventory()->setContents([
             $this->generateShopItem(Item::get(ItemIds::STONE_PICKAXE), 1, 16, self::BRONZE),
             $this->generateShopItem(Item::get(ItemIds::IRON_PICKAXE), 1, 4, self::SILVER),
@@ -591,22 +583,21 @@ class Loader extends Game
 		
         $gs1 = $this->generateShopItem(Item::get(ItemIds::GOLD_SWORD), 1, 2, self::SILVER);
         $gs1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
-
+		
         $gs2 = $this->generateShopItem(Item::get(ItemIds::GOLD_SWORD), 1, 4, self::SILVER);
         $gs2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
         $gs2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::SHARPNESS)));;
-
         $gs3 = $this->generateShopItem(Item::get(ItemIds::GOLD_SWORD), 1, 8, self::SILVER);
         $gs3->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
         $gs3->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::SHARPNESS), 2));;
-
+		
         $is1 = $this->generateShopItem(Item::get(ItemIds::IRON_SWORD), 1, 4, self::GOLD);
         $is1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
         $is1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::SHARPNESS)));
-
+		
         $menu->getInventory()->setContents([
             $kbs,
-	    $kbs1,
+	        $kbs1,
             $kbs2, 
             $gs1,
             $gs2,
@@ -627,15 +618,15 @@ class Loader extends Game
         //enchanted items
         $b1 = $this->generateShopItem(Item::get(ItemIds::BOW), 1, 4, self::GOLD);
         $b1->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
-
+		
         $b2 = $this->generateShopItem(Item::get(ItemIds::BOW), 1, 8, self::GOLD);
         $b2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
         $b2->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::POWER)));
-
+		
         $b3 = $this->generateShopItem(Item::get(ItemIds::BOW), 1, 16, self::GOLD);
         $b3->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::UNBREAKING)));
         $b3->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment(Enchantment::INFINITY)));
-
+		
         $menu->getInventory()->setContents([
             $b1,
             $b2,
@@ -664,23 +655,7 @@ class Loader extends Game
             $this->generateShopItem(Item::get(ItemIds::SPLASH_POTION, Potion::WEAKNESS), 1, 2 * 1, self::GOLD),
             $this->generateShopItem(Item::get(ItemIds::SPLASH_POTION, Potion::POISON), 1, 2 * 1, self::GOLD),
             $this->generateShopItem(Item::get(ItemIds::BUCKET, 1), 1, 2 * 1, self::SILVER),
-			 $this->generateShopItem(Item::get(ItemIds::COBWEB), 1, 32 * 1, self::BRONZE),
-        ]);
-        $menu->setListener(function (Player $player, Item $clicked, Item $clickedWith, SlotChangeAction $action): bool {
-            $this->buyItem($clicked, $player);
-            return true;
-        });
-        $menu->send($player);
-    }
-	
-	 private function openShopEat(Player $player)
-    {
-        $menu = InvMenu::create(InvMenu::TYPE_CHEST)->setName("§f[§4Bed§fwars]§6 Essen Shop")->readonly();
-        $menu->setInventoryCloseListener($this->subToMainShop());
-        $menu->getInventory()->setContents([
-            $this->generateShopItem(Item::get(ItemIds::COOKED_BEEF), 2, 1 * 2, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::COOKED_PORKCHOP), 2, 1 * 2, self::BRONZE),
-			$this->generateShopItem(Item::get(ItemIds::GOLDEN_APPLE), 1, 1 * 1, self::GOLD),
+		    $this->generateShopItem(Item::get(ItemIds::COBWEB), 1, 32 * 1, self::BRONZE),
         ]);
         $menu->setListener(function (Player $player, Item $clicked, Item $clickedWith, SlotChangeAction $action): bool {
             $this->buyItem($clicked, $player);
@@ -696,6 +671,7 @@ class Loader extends Game
     {
         return function (Player $player, BaseFakeInventory $inventory) {
             $player->removeWindow($inventory);
+            $this->openShop($player);
         };
     }
 
