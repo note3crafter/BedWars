@@ -16,8 +16,8 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
-use xenialdan\BedWars\libs\xenialdan\gameapi\API;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
+use xenialdan\gameapi\API;
+use xenialdan\gameapi\Arena;
 
 class SetupEventListener implements Listener
 {
@@ -84,7 +84,7 @@ class SetupEventListener implements Listener
         $settings = $arena->getSettings();
         $settings->teams[$team->getName()]["spawn"] = (array)$e->getBlock()->asVector3();
         $arena->getSettings()->save();
-        $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der Spawn wurde erfolgreich gesetzt" . $team->getColor() . $team->getName() . TextFormat::RESET . " zu [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
+		$e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der Spawn wurde erfolgreich gesetzt" . $team->getColor() . $team->getName() . TextFormat::RESET . " zu [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
     }
 
     /**
@@ -132,7 +132,7 @@ class SetupEventListener implements Listener
                     $s = $settings->bronze;
                     unset($s[$i]);
                     $settings->bronze = $s;
-                    $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde entfernt bei §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
+                   $e->getPlayer()->sendMessage("§f[§4Bed§fWars] §6Der §cBronzeSpawner§6 wurde entfernt bei §f[§e" . (join(", ", (array)$e->getBlock()->asVector3())) . "§f]");
                     $removed = true;
                 }
             }
