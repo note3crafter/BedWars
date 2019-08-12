@@ -3,12 +3,12 @@
 
 namespace xenialdan\BedWars;
 
-use xenialdan\BedWars\libs\xenialdan\gameapi\Team;
+use xenialdan\gameapi\Team;
 
 class BedwarsTeam extends Team
 {
     private $bedDestroyed = false;
-
+    
     /**
      * @return bool
      */
@@ -16,7 +16,7 @@ class BedwarsTeam extends Team
     {
         return $this->bedDestroyed;
     }
-
+    
     /**
      * @param bool $bedDestroyed
      */
@@ -24,5 +24,5 @@ class BedwarsTeam extends Team
     {
         $this->bedDestroyed = $bedDestroyed;
     }
-
+    
 }
