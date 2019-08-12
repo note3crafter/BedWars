@@ -7,7 +7,7 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\Player;
-use xenialdan\BedWars\libs\xenialdan\gameapi\API;
+use xenialdan\gameapi\API;
 
 /**
  * Class LeaveGameListener
