@@ -6,7 +6,7 @@ namespace xenialdan\BedWars\task;
 
 use pocketmine\scheduler\Task;
 use xenialdan\BedWars\Loader;
-use xenialdan\BedWars\libs\xenialdan\gameapi\Arena;
+use xenialdan\gameapi\Arena;
 
 class SpawnItemsTask extends Task
 {
