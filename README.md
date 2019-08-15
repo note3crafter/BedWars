@@ -42,7 +42,7 @@ Plugin repariert von:
 - note3crafter (TheNote
 
 Was noch gemacht wurde:
-- Plugin wurde auf 3.9.0 Erfolgreich ohne anderen Plugins getestet
+- Plugin wurde auf 3.9.X Erfolgreich ohne anderen Plugins getestet
 
 Mit welchem Plugins es nicht Compatible ist
 - PureEnityX (allgemein Mob Plugins) 
