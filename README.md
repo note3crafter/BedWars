@@ -39,7 +39,7 @@ Plugin Code von:
 - XenialDan
 
 Plugin repariert von:
-- note3crafter (TheNote
+- note3crafter (TheNote)
 
 Was noch gemacht wurde:
 - Plugin wurde auf 3.9.X Erfolgreich ohne anderen Plugins getestet
