@@ -9,7 +9,7 @@ Ein neues Bedwars Plugin von XenialDan
 So kannst du eine Arena Erstellen:
 Benutze den Command `/bw setup` , danach öffnet sich ein UI und dort kannst du deine Arena Bearbeiten.
 
-Es ermöglicht ihnen ItemSpawnee, TeamSpawnPonits sowie VillagerShops.
+Es ermöglicht ihnen ItemSpawner, TeamSpawnPonits sowie VillagerShops.
 
 Benutze `/bw endsetup` wenn du Fertig bist - es Speichert deine Welt automatisch.
 
