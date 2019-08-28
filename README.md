@@ -1,5 +1,5 @@
 # Wichtig
-Fu benötigst diese 4 sachen um das Plugin nutzen zu können lade dazu
+Du benötigst diese 4 sachen um das Plugin nutzen zu können lade dazu
 [DEVirion](https://poggit.pmmp.io/p/DEVirion/1.2.7) herunter und füge das in "Plugins" ein und danach erstellst du ein Ordner namens "virions" danach fügst du [InvMenü](https://poggit.pmmp.io/ci/Muqsit/InvMenu/InvMenu), [CustomUI](https://poggit.pmmp.io/ci/thebigsmileXD/customui/~) sowie [GameAPI](https://poggit.pmmp.io/ci/thebigsmileXD/gameapi/gameapi)  dort in den Ordner danach kannste den Server starten und es Sollte Funktionieren ein How to Install Video Folgt...
 
 # BedWars - German Edition
