@@ -1,0 +1,11 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/note3crafter/BedWars-German-Edition
+branches:
+- master
+projects:
+  BedWars-German-Edition:
+    path: ""
+  virions.InvMenu-master:
+    path: virions/InvMenu-master/
+    model: virion
+    type: library
+...
