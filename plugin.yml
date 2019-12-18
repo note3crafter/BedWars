@@ -2,7 +2,9 @@
 name: BedWars - German Edition 
 main: xenialdan\BedWars\Loader
 version: 1.1.4 DE
-api: [3.9, 4.0.0]
+api:
+  - 3.9.0
+  - 3.10.0
 author: XenialDan(Germantranslate by TheNote)
 load: POSTWORLD
 softdepend:
@@ -14,6 +16,8 @@ permissions:
     description: Basic Perms für die Bedwars Commands.
     default: op
     children:
+      bedwars.command.join:
+        default: true
       bedwars.command.leave:
         default: true
       bedwars.command.forcestart:
