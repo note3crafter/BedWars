@@ -46,5 +46,5 @@ Mit welchem Plugins es nicht Compatible ist
 
 Mein Discord:
 <div align="center">
-	<a href="https://discord.gg/XwXKuvy">
+	<a href="https://discord.gg/Pebq8Wu">
         <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="discord">
