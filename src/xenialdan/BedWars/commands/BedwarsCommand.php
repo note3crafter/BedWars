@@ -8,7 +8,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\PluginCommand;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
-use pocketmine\utils\TextFormat;
 use xenialdan\BedWars\Loader;
 use xenialdan\gameapi\API;
 use xenialdan\gameapi\Game;
@@ -26,7 +25,6 @@ class BedwarsCommand extends PluginCommand
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        /** @var Player $sender */
         $return = $sender->hasPermission($this->getPermission());
         if (!$return) {
             $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
@@ -40,16 +38,15 @@ class BedwarsCommand extends PluginCommand
             $return = true;
             switch ($args[0] ?? "help") {
                 case "setup":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.setup")) {
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        /** @var Game $p */
-                        $p = $this->getPlugin();
-                        $p->setupArena($sender);
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.setup")) {
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    $p = $this->getPlugin();
+                    $p->setupArena($sender);
+                    break;
+                }
                 case "join":
                 {
                     if (!$sender->hasPermission("bedwars.command.join")) {
@@ -60,7 +57,7 @@ class BedwarsCommand extends PluginCommand
                         $sender->sendMessage(Loader::$prefix . "§cDu kannst dieser Arena nicht Beitreten wenn sie derzeit Läuft");
                         return true;
                     }
-                    if (is_null($arena = Loader::getInstance()->getArenas()[$args[1]]??null)) {
+                    if (is_null($arena = Loader::getInstance()->getArenas()[$args[1]] ?? null)) {
                         $sender->sendMessage(Loader::$prefix . "§cDie Arena §f: §e" . $args[1] . " §cwurde nicht gefunden!");
                         return true;
                     }
@@ -71,75 +68,72 @@ class BedwarsCommand extends PluginCommand
                     break;
                 }
                 case "leave":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.leave")) {
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        $arena = API::getArenaOfPlayer($sender);
-                        if(is_null($arena) || !API::isArenaOf($this->getPlugin(), $arena->getLevel())){
-                            /** @var Game $plugin */
-                            $plugin = $this->getPlugin();
-                            $sender->sendMessage(Loader::$prefix . "§cDu bist derzeit in keiner Runde ". $plugin->getPrefix());
-                            return true;
-                        }
-                        if (API::isPlaying($sender, $this->getPlugin())) $arena->removePlayer($sender);
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.leave")) {
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    $arena = API::getArenaOfPlayer($sender);
+                    if (is_null($arena) || !API::isArenaOf($this->getPlugin(), $arena->getLevel())) {
+                        $plugin = $this->getPlugin();
+                        $sender->sendMessage(Loader::$prefix . "§cDu bist derzeit in keiner Runde " . $plugin->getPrefix());
+                        return true;
+                    }
+                    if (API::isPlaying($sender, $this->getPlugin())) $arena->removePlayer($sender);
+                    break;
+                }
                 case "endsetup":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.endsetup")) {//TODO only when setup
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        /** @var Game $p */
-                        $p = $this->getPlugin();
-                        $p->endSetupArena($sender);
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.endsetup")) {//TODO only when setup
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    $p = $this->getPlugin();
+                    $p->endSetupArena($sender);
+                    break;
+                }
                 case "stop":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.stop")) {
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        API::getArenaByLevel(Loader::getInstance(), $sender->getLevel())->stopArena();
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.stop")) {
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    API::getArenaByLevel(Loader::getInstance(), $sender->getLevel())->stopArena();
+                    break;
+                }
                 case "forcestart":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.forcestart")) {
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        $arena = API::getArenaOfPlayer($sender);
-                        if(is_null($arena) || !API::isArenaOf($this->getPlugin(), $arena->getLevel())){
-                            /** @var Game $plugin */
-                            $plugin = $this->getPlugin();
-                            $sender->sendMessage(Loader::$prefix . "§6Du bist derzeit in keiner Runde ". $plugin->getPrefix());
-                            return true;
-                        }
-                        $arena->startTimer($arena->getOwningGame());
-                        $arena->forcedStart = true;
-                        $arena->setTimer(5);
-                        $sender->getServer()->broadcastMessage(Loader::$prefix . "Das Spiel wurde gestartet von " . $sender->getDisplayName(), $arena->getPlayers());
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.forcestart")) {
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    $arena = API::getArenaOfPlayer($sender);
+                    if (is_null($arena) || !API::isArenaOf($this->getPlugin(), $arena->getLevel())) {
+                        $plugin = $this->getPlugin();
+                        $sender->sendMessage(Loader::$prefix . "§6Du bist derzeit in keiner Runde " . $plugin->getPrefix());
+                        return true;
+                    }
+                    $arena->startTimer($arena->getOwningGame());
+                    $arena->forcedStart = true;
+                    $arena->setTimer(5);
+                    $sender->getServer()->broadcastMessage(Loader::$prefix . "Das Spiel wurde gestartet von " . $sender->getDisplayName(), $arena->getPlayers());
+                    break;
+                }
                 case "help":
-                    {
-                        if (!$sender->hasPermission("bedwars.command.help")) {
-                            $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
-                            return true;
-                        }
-                        $sender->sendMessage($this->getUsage());
-                        $return = true;
-                        break;
+                {
+                    if (!$sender->hasPermission("bedwars.command.help")) {
+                        $sender->sendMessage(Loader::$prefix . "§cDu hast keine Berechtigung um diesen Befehl auszuführen");
+                        return true;
                     }
+                    $sender->sendMessage($this->getUsage());
+                    $return = true;
+                    break;
+                }
                 default:
-                    {
-                        $return = false;
-                        throw new \InvalidArgumentException("Unbekanntes Argument: " . $args[0]);
-                    }
+                {
+                    $return = false;
+                    throw new \InvalidArgumentException("Unbekanntes Argument: " . $args[0]);
+                }
             }
         } catch (\Throwable $error) {
             $this->getPlugin()->getLogger()->logException($error);

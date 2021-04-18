@@ -1,15 +1,11 @@
-# Wichtig
-Du benötigst diese 4 sachen um das Plugin nutzen zu können lade dazu
-[DEVirion](https://poggit.pmmp.io/p/DEVirion/1.2.7) herunter und füge das in "Plugins" ein und danach erstellst du ein Ordner namens "virions" danach fügst du [InvMenü](https://poggit.pmmp.io/ci/Muqsit/InvMenu/InvMenu), [CustomUI](https://poggit.pmmp.io/ci/thebigsmileXD/customui/~) sowie [GameAPI](https://poggit.pmmp.io/ci/thebigsmileXD/gameapi/gameapi)  dort in den Ordner danach kannste den Server starten und es Sollte Funktionieren ein How to Install Video Folgt...
-
-# BedWars - German Edition
+# BedWars - German Edition v 1.2.0
 <!-- todo poggit badges -->
 Ein neues Bedwars Plugin von XenialDan
 ## Setup
 So kannst du eine Arena Erstellen:
 Benutze den Command `/bw setup` , danach öffnet sich ein UI und dort kannst du deine Arena Bearbeiten.
 
-Es ermöglicht ihnen ItemSpawner, TeamSpawnPonits sowie VillagerShops.
+Es ermöglicht ihnen ItemSpawner, TeamSpawnPoints sowie VillagerShops.
 
 Benutze `/bw endsetup` wenn du Fertig bist - es Speichert deine Welt automatisch.
 
@@ -42,7 +38,7 @@ Plugin repariert von:
 - note3crafter (TheNote)
 
 Was noch gemacht wurde:
-- Plugin wurde auf 3.9.X Erfolgreich ohne anderen Plugins getestet
+- Plugin wurde auf 3.19.0 Erfolgreich ohne anderen Plugins getestet
 
 Mit welchem Plugins es nicht Compatible ist
 - PureEnityX (allgemein Mob Plugins) 

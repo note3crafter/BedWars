@@ -44,16 +44,9 @@ class Loader extends Game
     const BRONZE = "Bronze";
     const SILVER = "Silver";
     const GOLD = "Gold";
-
-    /** @var Loader */
     private static $instance = null;
-
     public static $prefix = "§f[§4Bed§fWars] §6";
 
-    /**
-     * Returns an instance of the plugin
-     * @return Loader
-     */
     public static function getInstance()
     {
         return self::$instance;
@@ -72,7 +65,6 @@ class Loader extends Game
         $this->getServer()->getPluginManager()->registerEvents(new LeaveGameListener(), $this);
         $this->getServer()->getPluginManager()->registerEvents(new SetupEventListener(), $this);
         $this->getServer()->getCommandMap()->register("bw", new BedwarsCommand($this));
-        /** @noinspection PhpUnhandledExceptionInspection */
         API::registerGame($this);
         foreach (glob($this->getDataFolder() . "*.json") as $v) {
             $this->addArena($this->getNewArena($v));
@@ -309,10 +301,6 @@ class Loader extends Game
         $player->sendForm($form);
     }
 
-    /**
-     * @param Arena $arena
-     * @param Player $player
-     */
     public function removePlayer(Arena $arena, Player $player)
     {
         $arena->bossbar->setTitle(count(array_filter($arena->getTeams(), function (Team $team): bool {
@@ -320,12 +308,8 @@ class Loader extends Game
             })) . ' teams alive');
     }
 
-    /**
-     * @param Arena $arena
-     */
     public function startArena(Arena $arena): void
     {
-        /** @var BedwarsTeam $team */
         foreach ($arena->getTeams() as $team) {
             $team->setBedDestroyed(false);
             foreach ($team->getPlayers() as $player) {
@@ -341,16 +325,12 @@ class Loader extends Game
         $this->getScheduler()->scheduleDelayedRepeatingTask(new SpawnItemsTask($arena), 100, 1);
     }
 
-    /**
-     * @param Arena $arena
-     */
     public function stopArena(Arena $arena): void
     {
     }
 
     public function spawnBronze(Arena $arena)
     {
-        /** @var BedwarsSettings $settings */
         $settings = $arena->getSettings();
         foreach ($settings->bronze ?? [] as $i => $spawn) {
             if ($arena->getLevel()->getBlockIdAt($spawn["x"], $spawn["y"], $spawn["z"]) !== BlockIds::HARDENED_CLAY) {
@@ -363,9 +343,7 @@ class Loader extends Game
             }
             $v = new Vector3($spawn["x"] + 0.5, $spawn["y"] + 1, $spawn["z"] + 0.5);
             if (!$arena->getLevel()->isChunkLoaded($v->x >> 4, $v->z >> 4)) $arena->getLevel()->loadChunk($v->x >> 4, $v->z >> 4);
-            //Stack items if too many
             if (count($arena->getLevel()->getChunkEntities($v->x >> 4, $v->z >> 4)) >= 50) {
-                /** @var ItemEntity|null $last */
                 $last = null;
                 foreach ($arena->getLevel()->getChunkEntities($v->x >> 4, $v->z >> 4) as $chunkEntity) {
                     if (!$chunkEntity instanceof ItemEntity) continue;
@@ -393,7 +371,6 @@ class Loader extends Game
 
     public function spawnSilver(Arena $arena)
     {
-        /** @var BedwarsSettings $settings */
         $settings = $arena->getSettings();
         foreach ($settings->silver ?? [] as $i => $spawn) {
             if ($arena->getLevel()->getBlockIdAt($spawn["x"], $spawn["y"], $spawn["z"]) !== BlockIds::IRON_BLOCK) {
@@ -414,7 +391,6 @@ class Loader extends Game
 
     public function spawnGold(Arena $arena)
     {
-        /** @var BedwarsSettings $settings */
         $settings = $arena->getSettings();
         foreach ($settings->gold ?? [] as $i => $spawn) {
             if ($arena->getLevel()->getBlockIdAt($spawn["x"], $spawn["y"], $spawn["z"]) !== BlockIds::GOLD_BLOCK) {
@@ -432,10 +408,6 @@ class Loader extends Game
         }
     }
 
-    /**
-     * Called right when a player joins a game in an arena. Used to set up players
-     * @param Player $player
-     */
     public function onPlayerJoinTeam(Player $player): void
     {
         $player->setSpawn(Position::fromObject(API::getTeamOfPlayer($player)->getSpawn(), API::getArenaOfPlayer($player)->getLevel()));
@@ -443,12 +415,6 @@ class Loader extends Game
         $player->getInventory()->addItem(Item::get(ItemIds::BED, API::getMetaByColor(API::getTeamOfPlayer($player)->getColor()))->setCustomName("§f[§6Wechsle das Team§f]"));
     }
 
-    /**
-     * Callback function for @see array_filter
-     * If return value is true, this entity will be deleted.
-     * @param Entity $entity
-     * @return bool
-     */
     public function removeEntityOnArenaReset(Entity $entity): bool
     {
         return $entity instanceof ItemEntity || $entity instanceof PrimedTNT || $entity instanceof Arrow;
@@ -666,9 +632,6 @@ class Loader extends Game
         $menu->send($player);
     }
 
-    /**
-     * @return \Closure
-     */
     private function subToMainShop(): \Closure
     {
         return function (Player $player, BaseFakeInventory $inventory) {

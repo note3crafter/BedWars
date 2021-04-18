@@ -22,10 +22,6 @@ use xenialdan\gameapi\Arena;
 class SetupEventListener implements Listener
 {
 
-    /**
-     * @priority HIGHEST
-     * @param EntitySpawnEvent $e
-     */
     public function spawnShop(EntitySpawnEvent $e){
         if(!$e->getEntity() instanceof Villager) return;
         if (!API::isArenaOf(Loader::getInstance(), ($level = ($entity = $e->getEntity())->getLevel()))) return;
@@ -41,10 +37,6 @@ class SetupEventListener implements Listener
         $entity->respawnToAll();
     }
 
-    /**
-     * @priority HIGHEST
-     * @param EntityDamageEvent $e
-     */
     public function removeOrRotateShop(EntityDamageEvent $e){
         if(!$e->getEntity() instanceof Villager || !$e instanceof EntityDamageByEntityEvent) return;
         if(!$e->getDamager() instanceof Player) return;
@@ -63,10 +55,6 @@ class SetupEventListener implements Listener
         $entity->respawnToAll();
     }
 
-    /**
-     * @priority HIGHEST
-     * @param BlockPlaceEvent $e
-     */
     public function setSpawns(BlockPlaceEvent $e)
     {
         if (!API::isArenaOf(Loader::getInstance(), $e->getBlock()->getLevel())) return;
@@ -87,10 +75,6 @@ class SetupEventListener implements Listener
 		$e->getPlayer()->sendMessage(Loader::$prefix . "Der Spawn wurde erfolgreich gesetzt" . $team->getColor() . $team->getName() . TextFormat::RESET . " zu [" . (join(", ", (array)$e->getBlock()->asVector3())) . "]");
     }
 
-    /**
-     * @priority HIGHEST
-     * @param BlockBreakEvent $e
-     */
     public function removeItemSpawns(BlockBreakEvent $e)
     {
         if (!API::isArenaOf(Loader::getInstance(), $e->getBlock()->getLevel())) return;
@@ -100,7 +84,6 @@ class SetupEventListener implements Listener
         }
         if ($e->getBlock()->getId() !== Block::GOLD_BLOCK && $e->getBlock()->getId() !== Block::IRON_BLOCK && $e->getBlock()->getId() !== Block::HARDENED_CLAY) return;
         $e->setCancelled();
-        /** @var BedwarsSettings $settings */
         $settings = $arena->getSettings();
         $vector3 = (array)$e->getBlock()->asVector3();
         $removed = false;
@@ -141,10 +124,6 @@ class SetupEventListener implements Listener
         else $e->setCancelled(false);
     }
 
-    /**
-     * @priority HIGHEST
-     * @param PlayerInteractEvent $e
-     */
     public function setItemSpawns(PlayerInteractEvent $e)
     {
         if (!$e->getAction() === PlayerInteractEvent::RIGHT_CLICK_BLOCK) return;
@@ -155,7 +134,6 @@ class SetupEventListener implements Listener
         }
         if ($e->getBlock()->getId() !== Block::GOLD_BLOCK && $e->getBlock()->getId() !== Block::IRON_BLOCK && $e->getBlock()->getId() !== Block::HARDENED_CLAY) return;
         $e->setCancelled();
-        /** @var BedwarsSettings $settings */
         $settings = $arena->getSettings();
         $vector3 = (array)$e->getBlock()->asVector3();
         if ($e->getBlock()->getId() === Block::GOLD_BLOCK) {
@@ -190,5 +168,4 @@ class SetupEventListener implements Listener
         }
         $arena->getSettings()->save();
     }
-
 }

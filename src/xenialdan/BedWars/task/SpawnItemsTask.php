@@ -1,8 +1,6 @@
 <?php
 
-
 namespace xenialdan\BedWars\task;
-
 
 use pocketmine\scheduler\Task;
 use xenialdan\BedWars\Loader;
@@ -17,13 +15,6 @@ class SpawnItemsTask extends Task
         $this->arena = $arena;
     }
 
-    /**
-     * Actions to execute when run
-     *
-     * @param int $currentTick
-     *
-     * @return void
-     */
     public function onRun(int $currentTick)
     {
         if ($this->arena->getState() === Arena::INGAME) {

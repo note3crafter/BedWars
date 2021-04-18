@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 namespace xenialdan\BedWars;
 
@@ -19,11 +19,6 @@ use xenialdan\gameapi\API;
 use xenialdan\gameapi\Arena;
 use xenialdan\gameapi\Team;
 
-/**
- * Class EventListener
- * @package xenialdan\XBedWars
- * Listens for all normal events
- */
 class EventListener implements Listener
 {
 
@@ -74,7 +69,6 @@ class EventListener implements Listener
                 if ($bedTile instanceof \pocketmine\tile\Bed) {
                     $event->setDrops([]);
                     $c = $bedTile->getColor();
-                    /** @var BedwarsTeam $attackedTeam */
                     $attackedTeam = API::getTeamByColor(Loader::getInstance(), $event->getBlock()->getLevel(), API::getColorByMeta($c));
                     if (is_null($attackedTeam)) {//no team but bed for color
                         Loader::getInstance()->getLogger()->notice(Loader::$prefix . "Versuche nicht ein Bett zu Zerstören obwohl dieses Team nicht existiert. Vielleicht repaierst du die Map. Bed: Color: " . API::getColorByMeta($c) . "" . $event->getBlock() . " " . $event->getBlock()->asVector3() . " " . $event->getBlock()->getLevel()->getName());
@@ -120,7 +114,6 @@ class EventListener implements Listener
             if (($arena->getState() === Arena::STARTING || $arena->getState() === Arena::WAITING) && $event->getItem()->getId() === ItemIds::BED) {
                 $event->setCancelled();
                 $player = $event->getPlayer();
-                /** @var Team $team */
                 if(count(($team = $arena->getTeamByPlayer($player))->getPlayers()) <= $team->getMinPlayers()){
                     $player->sendMessage(Loader::$prefix . "§cDu kannst das Team nicht wechseln ".$team->getMinPlayers(). " Es werden noch Spieler Benötigt");
                     return;
